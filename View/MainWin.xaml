@@ -8,14 +8,15 @@
         Title="MainWin" Height="800" Width="500"
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid>
-        <ListView x:Name="listView" ItemsSource="{Binding MyProcess}" Margin="0,0,180,20">
+        <ListView x:Name="listView" ItemsSource="{Binding Processes}" Margin="0,0,180,20">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button x:Name="refresh_button" Content="Refresh" Command="{Binding RefreshCommand}" HorizontalAlignment="Left" Margin="365,96,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.127,1.162"/>
+        <Button x:Name="sort_button" Content="{Binding SortButtonText}" Command="{Binding SortCommand}" HorizontalAlignment="Left" Margin="373,98,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.127,1.162" Height="20" Width="75"/>
+        <Button x:Name="refresh_button" Content="Refresh" Command="{Binding RefreshCommand}" HorizontalAlignment="Left" Margin="325,98,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.127,1.162"/>
         <TextBox x:Name="filter_text" Text="{Binding FilterString}"  HorizontalAlignment="Left" Margin="325,71,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="123" Height="20" RenderTransformOrigin="0.626,3.802"/>
 
     </Grid>

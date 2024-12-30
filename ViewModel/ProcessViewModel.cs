@@ -12,33 +12,63 @@ namespace TaskManager.ViewModel
 {
 	public class ProcessViewModel : BaseViewModel
 	{
-		// public ObservableCollection<MyProcess> MyProcess { get; set; } = ProcessRepository.GetProcesses();
-		public IEnumerable<MyProcess> MyProcess { get; set; } = ProcessRepository.GetProcesses();
 		public ICommand RefreshCommand { get; }
-		public ICommand FilterAndSortCommand;
-		private bool isAscending = true;
+		public ICommand SortCommand { get; }
 		
+		private bool _isAscending = true;
 
-		private string _FilterString;
+		private string _filterString;
 		public string FilterString
 		{
-			get { return _FilterString; }
+			get => _filterString;
 			set
 			{
-				_FilterString = value;
+				_filterString = value;
 				OnPropertyChanged("FilterString");
+			}
+		}
+
+		private readonly IEnumerable<MyProcess> _allProcesses = ProcessRepository.GetProcesses();
+		private IEnumerable<MyProcess> _processes;
+		public IEnumerable<MyProcess> Processes
+		{
+			get => _processes;
+			set
+			{
+				_processes = value;
+				OnPropertyChanged("Processes");
+			}
+		}
+
+		private string _sortButtonText;
+		public string SortButtonText
+		{
+			get => _sortButtonText ?? (_sortButtonText = "Ascending");
+			set
+			{
+				_sortButtonText = value;
+				OnPropertyChanged("SortButtonText");
 			}
 		}
 
 		public ProcessViewModel()
 		{
 			RefreshCommand = new RelayCommand(Refresh);
-			FilterAndSortCommand = new RelayCommand(FilterAndSort);
+			SortCommand = new RelayCommand(Sort);
 		}
 
 		private void Sort()
 		{
-			isAscending = !isAscending;
+			_isAscending = !_isAscending;
+			if (_isAscending)
+			{
+				SortButtonText = "Ascending";
+			}
+			else
+			{
+				SortButtonText = "Descending";
+			}
+			Refresh();
 		}
 		private void Refresh()
 		{
@@ -47,19 +77,17 @@ namespace TaskManager.ViewModel
 
 		private void FilterAndSort()
 		{
-			IEnumerable<MyProcess> p = ProcessRepository.GetProcesses();
-			p = p.Where(x => x.Name.Contains(_FilterString));
-			if (isAscending)
+			IEnumerable<MyProcess> p = _allProcesses;
+			p = p.Where(x => x.Name.Contains(_filterString));
+			if (_isAscending)
 			{
 				p = p.OrderBy(x => x.Name);
 			}
-			if (isAscending)
+			else
 			{
 				p = p.OrderByDescending(x => x.Name);
 			}
-
-			MyProcess = p;
-			OnPropertyChanged(nameof(MyProcess));
+			Processes = p;
 		}
 	}
 }
