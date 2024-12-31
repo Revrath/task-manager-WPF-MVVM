@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using TaskManager.Model;
 using System.Diagnostics;
+using System.Threading;
 using TaskManager.Command;
 namespace TaskManager.ViewModel
 {
@@ -28,7 +29,6 @@ namespace TaskManager.ViewModel
 			}
 		}
 
-		private readonly IEnumerable<MyProcess> _allProcesses = ProcessRepository.GetProcesses();
 		private IEnumerable<MyProcess> _processes;
 		public IEnumerable<MyProcess> Processes
 		{
@@ -51,10 +51,23 @@ namespace TaskManager.ViewModel
 			}
 		}
 
+		private CancellationTokenSource _cancelts = new CancellationTokenSource();
 		public ProcessViewModel()
 		{
 			RefreshCommand = new RelayCommand(Refresh);
 			SortCommand = new RelayCommand(Sort);
+
+			//do not await for infinite loop
+			RefreshIndefinetely(1000, _cancelts);
+		}
+
+		private async Task RefreshIndefinetely(int time, CancellationTokenSource cts)
+		{
+			while (true)
+			{
+				Refresh();
+				await Task.Delay(time);
+			}
 		}
 
 		private void Sort()
@@ -77,8 +90,10 @@ namespace TaskManager.ViewModel
 
 		private void FilterAndSort()
 		{
-			IEnumerable<MyProcess> p = _allProcesses;
-			p = p.Where(x => x.Name.Contains(_filterString));
+			IEnumerable<MyProcess> p = ProcessRepository.GetProcesses(); 
+			if (_filterString != null)
+				p = p.Where(x => x.Name.Contains(_filterString));
+			
 			if (_isAscending)
 			{
 				p = p.OrderBy(x => x.Name);
