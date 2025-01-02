@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -11,10 +12,12 @@ namespace TaskManager.Model
 	public class MyProcess : INotifyPropertyChanged
 	{
 		public string Name { get; set; }
-
-		public MyProcess(string name)
+		public Process Process { get; set; }
+		public string Priority; 
+		public MyProcess(string name, Process process)
 		{
 			Name = name;
+			Process = process;
 		}
 		public MyProcess(){}
 

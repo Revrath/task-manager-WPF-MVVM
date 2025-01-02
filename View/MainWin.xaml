@@ -4,20 +4,28 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TaskManager.View"
+        xmlns:viewModel="clr-namespace:TaskManager.ViewModel"
         mc:Ignorable="d"
         Title="MainWin" Height="800" Width="500"
-        DataContext="{Binding RelativeSource={RelativeSource Self}}">
+        >
+    <Window.DataContext>
+        <viewModel:ProcessViewModel/>
+    </Window.DataContext>
     <Grid>
-        <ListView x:Name="listView" ItemsSource="{Binding Processes}" Margin="0,0,180,20">
+        <ListView x:Name="listView" SelectedItem="{Binding SelectedProcess}" ItemsSource="{Binding Processes}" Margin="0,0,180,20">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding ProcessName}"/>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding PriorityClass}"/>
                 </GridView>
             </ListView.View>
         </ListView>
         <Button x:Name="sort_button" Content="{Binding SortButtonText}" Command="{Binding SortCommand}" HorizontalAlignment="Left" Margin="373,98,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.127,1.162" Height="20" Width="75"/>
         <Button x:Name="refresh_button" Content="Refresh" Command="{Binding RefreshCommand}" HorizontalAlignment="Left" Margin="325,98,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.127,1.162"/>
         <TextBox x:Name="filter_text" Text="{Binding FilterString}"  HorizontalAlignment="Left" Margin="325,71,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="123" Height="20" RenderTransformOrigin="0.626,3.802"/>
+        <Label x:Name="label" Content="Say my name:" HorizontalAlignment="Left" Margin="325,40,0,0" VerticalAlignment="Top" Width="123"/>
+        <Label x:Name="label1" Content="Refresh every (ms, 0 to stop):&#xD;&#xA;" HorizontalAlignment="Left" Margin="325,144,0,0" VerticalAlignment="Top" Width="165" Height="28"/>
+        <TextBox x:Name="refresh_text" Text="{Binding RefreshTime}" HorizontalAlignment="Left" Margin="325,177,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
 
     </Grid>
 </Window>

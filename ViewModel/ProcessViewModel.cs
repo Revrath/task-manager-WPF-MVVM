@@ -15,6 +15,7 @@ namespace TaskManager.ViewModel
 	{
 		public ICommand RefreshCommand { get; }
 		public ICommand SortCommand { get; }
+		public ICommand ChangeRefreshTimeCommand { get; }
 		
 		private bool _isAscending = true;
 
@@ -29,8 +30,8 @@ namespace TaskManager.ViewModel
 			}
 		}
 
-		private IEnumerable<MyProcess> _processes;
-		public IEnumerable<MyProcess> Processes
+		private IEnumerable<Process> _processes;
+		public IEnumerable<Process> Processes
 		{
 			get => _processes;
 			set
@@ -51,11 +52,23 @@ namespace TaskManager.ViewModel
 			}
 		}
 
+		private int _refreshTime = 1000;
+		public int RefreshTime
+		{
+			get => _refreshTime;
+			set
+			{
+				_refreshTime = value;
+				OnPropertyChanged("RefreshTime");
+			}
+		}
+
 		private CancellationTokenSource _cancelts = new CancellationTokenSource();
 		public ProcessViewModel()
 		{
 			RefreshCommand = new RelayCommand(Refresh);
 			SortCommand = new RelayCommand(Sort);
+			ChangeRefreshTimeCommand = new RelayCommand(ChangeRefreshTime);
 
 			//do not await for infinite loop
 			RefreshIndefinetely(1000, _cancelts);
@@ -68,6 +81,11 @@ namespace TaskManager.ViewModel
 				Refresh();
 				await Task.Delay(time);
 			}
+		}
+
+		private void ChangeRefreshTime()
+		{
+
 		}
 
 		private void Sort()
@@ -90,17 +108,17 @@ namespace TaskManager.ViewModel
 
 		private void FilterAndSort()
 		{
-			IEnumerable<MyProcess> p = ProcessRepository.GetProcesses(); 
+			IEnumerable<Process> p = ProcessRepository.GetProcesses(); 
 			if (_filterString != null)
-				p = p.Where(x => x.Name.Contains(_filterString));
+				p = p.Where(x => x.ProcessName.Contains(_filterString));
 			
 			if (_isAscending)
 			{
-				p = p.OrderBy(x => x.Name);
+				p = p.OrderBy(x => x.ProcessName);
 			}
 			else
 			{
-				p = p.OrderByDescending(x => x.Name);
+				p = p.OrderByDescending(x => x.ProcessName);
 			}
 			Processes = p;
 		}

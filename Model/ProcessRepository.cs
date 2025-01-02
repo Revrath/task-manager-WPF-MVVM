@@ -8,16 +8,18 @@ using System.Threading.Tasks;
 
 namespace TaskManager.Model
 {
-	public  class ProcessRepository
+	public class ProcessRepository
 	{
-		public static ObservableCollection<MyProcess> GetProcesses()
+		public static ObservableCollection<Process> GetProcesses()
 		{
 			var p = Process.GetProcesses();
-			var myProcesses = new ObservableCollection<MyProcess>();
-			foreach (var process in p)
-			{
-				myProcesses.Add(new MyProcess(process.ProcessName));
-			}
+			
+			var myProcesses = new ObservableCollection<Process>(p);
+			// foreach (var process in p)
+			// {
+			// 	myProcesses.Add(new MyProcess(process.ProcessName, process));
+			//
+			// }
 			return myProcesses;
 		}
 
