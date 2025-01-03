@@ -40,6 +40,20 @@ namespace TaskManager.ViewModel
 				OnPropertyChanged("Processes");
 			}
 		}
+		private Process _selectedProcess;
+		public Process SelectedProcess
+		{
+			get => _selectedProcess;
+			set
+			{
+				if (value != null)
+				{
+					_selectedProcess = value;
+				}
+
+				OnPropertyChanged("SelectedProcess");
+			}
+		}
 
 		private string _sortButtonText;
 		public string SortButtonText

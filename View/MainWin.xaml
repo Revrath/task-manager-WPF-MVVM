@@ -6,17 +6,17 @@
         xmlns:local="clr-namespace:TaskManager.View"
         xmlns:viewModel="clr-namespace:TaskManager.ViewModel"
         mc:Ignorable="d"
-        Title="MainWin" Height="800" Width="500"
+        Title="MainWin" Height="800" Width="800"
         >
     <Window.DataContext>
         <viewModel:ProcessViewModel/>
     </Window.DataContext>
     <Grid>
-        <ListView x:Name="listView" SelectedItem="{Binding SelectedProcess}" ItemsSource="{Binding Processes}" Margin="0,0,180,20">
+        <ListView x:Name="listView" SelectedItem="{Binding SelectedProcess}" ItemsSource="{Binding Processes}" Margin="0,0,0,20">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Name" DisplayMemberBinding="{Binding ProcessName}"/>
-                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding PriorityClass}"/>
+                    <!-- <GridViewColumn Header="Priority" DisplayMemberBinding="{Binding PriorityClass}"/> -->
                 </GridView>
             </ListView.View>
         </ListView>
@@ -26,6 +26,33 @@
         <Label x:Name="label" Content="Say my name:" HorizontalAlignment="Left" Margin="325,40,0,0" VerticalAlignment="Top" Width="123"/>
         <Label x:Name="label1" Content="Refresh every (ms, 0 to stop):&#xD;&#xA;" HorizontalAlignment="Left" Margin="325,144,0,0" VerticalAlignment="Top" Width="165" Height="28"/>
         <TextBox x:Name="refresh_text" Text="{Binding RefreshTime}" HorizontalAlignment="Left" Margin="325,177,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label Content="{Binding SelectedProcess.ProcessName, FallbackValue=-}" Margin="398,219,29,538"/>
+        <Grid Margin="325,297,29,71">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="41*"/>
+                <RowDefinition Height="40*"/>
+                <RowDefinition Height="335*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Content="Priority" Grid.Column="0" Margin="0,41,0,0" Grid.RowSpan="2"/>
+            <Label Grid.Column="1" Grid.Row="0"  Content="{Binding SelectedProcess.ProcessName, FallbackValue='-'}" />
+
+            <Label Content="Name" Grid.Row="0"/>
+            <Label Grid.Column="1"  Content="{Binding SelectedProcess.PriorityClass, FallbackValue='-'}" Margin="0,41,0,0" Grid.RowSpan="2" />
+
+            <Label Content="Threads" Grid.Row="2"/>
+            <ListView Grid.Row="2" Grid.Column="2" ItemsSource="{Binding SelectedProcess.Modules}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=ModuleName}" Width="100"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+        <!-- <Label Content="{Binding SelectedProcess.PriorityClass, FallbackValue=-}" Margin="398,251,29,506"/> -->
 
     </Grid>
 </Window>
