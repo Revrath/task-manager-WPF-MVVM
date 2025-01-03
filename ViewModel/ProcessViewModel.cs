@@ -99,7 +99,9 @@ namespace TaskManager.ViewModel
 
 		private void ChangeRefreshTime()
 		{
-
+			_cancelts.Cancel();
+			if (RefreshTime != 0)
+				RefreshIndefinetely(RefreshTime, _cancelts);
 		}
 
 		private void Sort()
