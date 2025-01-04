@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TaskManager.View"
         xmlns:viewModel="clr-namespace:TaskManager.ViewModel"
+        xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=System"
         mc:Ignorable="d"
         Title="MainWin" Height="800" Width="650"
         >
@@ -20,12 +21,14 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        
         <Button x:Name="sort_button" Content="{Binding SortButtonText}" Command="{Binding SortCommand}" HorizontalAlignment="Left" Margin="322,78,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.127,1.162" Height="20" Width="75"/>
         <Button x:Name="refresh_button" Content="Refresh" Command="{Binding RefreshCommand}" HorizontalAlignment="Left" Margin="274,78,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.127,1.162"/>
         <TextBox x:Name="filter_text" Text="{Binding FilterString}"  HorizontalAlignment="Left" Margin="274,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="123" Height="20" RenderTransformOrigin="0.626,3.802"/>
         <Label x:Name="label" Content="Say my name:" HorizontalAlignment="Left" Margin="274,20,0,0" VerticalAlignment="Top" Width="123"/>
         <Label x:Name="label1" Content="Refresh every (ms, 0 to stop):&#xD;&#xA;" HorizontalAlignment="Left" Margin="274,124,0,0" VerticalAlignment="Top" Width="165" Height="28"/>
         <TextBox x:Name="refresh_text" Text="{Binding RefreshTime}" HorizontalAlignment="Left" Margin="274,157,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        
         <Grid Margin="274,212,80,42">
             <Grid.RowDefinitions>
                 <RowDefinition Height="23*"/>
@@ -47,7 +50,7 @@
                    Grid.Column="1"/>
 
 
-            <Label Content="Threads" Grid.Row="2" Margin="0,18,0,0"/>
+            <Label Content="Modules" Grid.Row="2" Margin="0,18,0,0"/>
             <ListView Grid.Row="2" ItemsSource="{Binding SelectedProcess.Modules}" Margin="51,18,0,0" Grid.ColumnSpan="2">
                 <ListView.View>
                     <GridView>
@@ -56,16 +59,30 @@
                 </ListView.View>
             </ListView>
 
-            <Button Grid.Row="2" x:Name="sort_sdabutton" Content="KILL!" Command="{Binding SortCommand}" Grid.Column="0" Margin="0,266,0,0" Grid.RowSpan="2"/>
-
-            <Button Grid.Row="3" Grid.Column="0"  x:Name="refsfdresh_button" Command="{Binding RefreshCommand}" Margin="0,75,0,0" Grid.RowSpan="2">
-                <TextBlock TextWrapping="Wrap" Text="Change priorities"/>
-            </Button>
-            <RadioButton x:Name="radioButton" Grid.Column="1" Content="RadioButton" HorizontalAlignment="Left" Margin="5,18,0,0" Grid.Row="4" VerticalAlignment="Top" Checked="radioButton_Checked"/>
-            <RadioButton x:Name="radioButton_Copy" Grid.Column="1" Content="RadioButton" HorizontalAlignment="Left" Margin="110,18,0,0" Grid.Row="4" VerticalAlignment="Top"/>
-            <RadioButton x:Name="radioButton_Copy1" Grid.Column="1" Content="RadioButton" HorizontalAlignment="Left" Margin="5,39,0,0" Grid.Row="4" VerticalAlignment="Top"/>
-            <RadioButton x:Name="radioButton_Copy2" Grid.Column="1" Content="RadioButton" HorizontalAlignment="Left" Margin="110,39,0,0" Grid.Row="4" VerticalAlignment="Top"/>
-
+            <Button Content="Death!" Command="{Binding SortCommand}" 
+                    Grid.Row="3"  Grid.Column="0"/>
+            <!-- -->
+            <!-- <Button Command="{Binding SetPriorityCommand}"  -->
+            <!--         Grid.Row="4" Grid.Column="0"  > -->
+            <!--     <TextBlock TextWrapping="Wrap" Text="Change priorities"/> -->
+            <!-- </Button> -->
+            <Grid Grid.Column="1" Grid.Row="3" VerticalAlignment="Stretch">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <RadioButton CommandParameter="{x:Static diagnostics:ProcessPriorityClass.Idle}" Command="{Binding SetPriorityCommand}" Grid.Column="0" Content="Idle" Grid.Row="0"/>
+                <RadioButton CommandParameter="{x:Static diagnostics:ProcessPriorityClass.BelowNormal}" Command="{Binding SetPriorityCommand}" Grid.Column="0" Content="BelowNormal" Grid.Row="1"/>
+                <RadioButton CommandParameter="{x:Static diagnostics:ProcessPriorityClass.Normal}" Command="{Binding SetPriorityCommand}" Grid.Column="0" Content="Normal" Grid.Row="2"/>
+                <RadioButton CommandParameter="{x:Static diagnostics:ProcessPriorityClass.AboveNormal}" Command="{Binding  SetPriorityCommand}" Grid.Column="1" Content="AboveNormal"  Grid.Row="0" />
+                <RadioButton CommandParameter="{x:Static diagnostics:ProcessPriorityClass.High}" Command="{Binding  SetPriorityCommand}" Grid.Column="1" Content="High" Grid.Row="1" />
+                <RadioButton CommandParameter="{x:Static diagnostics:ProcessPriorityClass.RealTime}" Command="{Binding SetPriorityCommand}"  Grid.Column="1" Content="RealTime" Grid.Row="2" />
+            </Grid>
 
         </Grid>
         <!-- <Label Content="{Binding SelectedProcess.PriorityClass, FallbackValue=-}" Margin="398,251,29,506"/> -->
