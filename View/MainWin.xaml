@@ -17,17 +17,17 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Name" DisplayMemberBinding="{Binding ProcessName}"/>
-                    <!-- <GridViewColumn Header="Priority" DisplayMemberBinding="{Binding PriorityClass}"/> -->
                 </GridView>
             </ListView.View>
         </ListView>
         
         <Button x:Name="sort_button" Content="{Binding SortButtonText}" Command="{Binding SortCommand}" HorizontalAlignment="Left" Margin="322,78,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.127,1.162" Height="20" Width="75"/>
         <Button x:Name="refresh_button" Content="Refresh" Command="{Binding RefreshCommand}" HorizontalAlignment="Left" Margin="274,78,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.127,1.162"/>
-        <TextBox x:Name="filter_text" Text="{Binding FilterString}"  HorizontalAlignment="Left" Margin="274,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="123" Height="20" RenderTransformOrigin="0.626,3.802"/>
+        <TextBox x:Name="filter_text" Text="{Binding FilterString, UpdateSourceTrigger=PropertyChanged}"  HorizontalAlignment="Left" Margin="274,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="123" Height="20" RenderTransformOrigin="0.626,3.802"/>
         <Label x:Name="label" Content="Say my name:" HorizontalAlignment="Left" Margin="274,20,0,0" VerticalAlignment="Top" Width="123"/>
         <Label x:Name="label1" Content="Refresh every (ms, 0 to stop):&#xD;&#xA;" HorizontalAlignment="Left" Margin="274,124,0,0" VerticalAlignment="Top" Width="165" Height="28"/>
-        <TextBox x:Name="refresh_text" Text="{Binding RefreshTime}" HorizontalAlignment="Left" Margin="274,157,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="refresh_text" Text="{Binding RefreshTime, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="274,157,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Button Content="Ok" HorizontalAlignment="Left" Command="{Binding ChangeRefreshTimeCommand}" Margin="399,156,0,0" VerticalAlignment="Top" Width="20"/>
         
         <Grid Margin="274,212,80,42">
             <Grid.RowDefinitions>
@@ -59,13 +59,9 @@
                 </ListView.View>
             </ListView>
 
-            <Button Content="Death!" Command="{Binding SortCommand}" 
+            <Button Content="Death!" Command="{Binding KillCommand}" 
                     Grid.Row="3"  Grid.Column="0"/>
-            <!-- -->
-            <!-- <Button Command="{Binding SetPriorityCommand}"  -->
-            <!--         Grid.Row="4" Grid.Column="0"  > -->
-            <!--     <TextBlock TextWrapping="Wrap" Text="Change priorities"/> -->
-            <!-- </Button> -->
+
             <Grid Grid.Column="1" Grid.Row="3" VerticalAlignment="Stretch">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
@@ -83,9 +79,6 @@
                 <RadioButton CommandParameter="{x:Static diagnostics:ProcessPriorityClass.High}" Command="{Binding  SetPriorityCommand}" Grid.Column="1" Content="High" Grid.Row="1" />
                 <RadioButton CommandParameter="{x:Static diagnostics:ProcessPriorityClass.RealTime}" Command="{Binding SetPriorityCommand}"  Grid.Column="1" Content="RealTime" Grid.Row="2" />
             </Grid>
-
         </Grid>
-        <!-- <Label Content="{Binding SelectedProcess.PriorityClass, FallbackValue=-}" Margin="398,251,29,506"/> -->
-
     </Grid>
 </Window>

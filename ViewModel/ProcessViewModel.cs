@@ -15,6 +15,7 @@ namespace TaskManager.ViewModel
 	{
 		public ICommand RefreshCommand { get; }
 		public ICommand SortCommand { get; }
+		public ICommand KillCommand { get; }
 		public ICommand ChoosePriorityCommand { get; }
 		public ICommand SetPriorityCommand { get; }
 		public ICommand ChangeRefreshTimeCommand { get; }
@@ -29,6 +30,7 @@ namespace TaskManager.ViewModel
 			{
 				_filterString = value;
 				OnPropertyChanged("FilterString");
+				FilterAndSort();
 			}
 		}
 
@@ -96,11 +98,17 @@ namespace TaskManager.ViewModel
 		{
 			RefreshCommand = new RelayCommand(Refresh);
 			SortCommand = new RelayCommand(Sort);
+			KillCommand = new RelayCommand(Kill);
 			SetPriorityCommand = new RelayCommand(SetPriority);
 			ChangeRefreshTimeCommand = new RelayCommand(ChangeRefreshTime);
 
 			//do not await for infinite loop
 			RefreshIndefinetely(1000, _cancelts);
+		}
+
+		private void Kill(object nah)
+		{
+			SelectedProcess.Kill();
 		}
 		private void SetPriority(object p)
 		{
@@ -110,6 +118,10 @@ namespace TaskManager.ViewModel
 		{
 			while (true)
 			{
+				if (cts.IsCancellationRequested)
+				{
+					return;
+				}
 				Refresh(null);
 				await Task.Delay(time);
 			}
@@ -118,6 +130,7 @@ namespace TaskManager.ViewModel
 		private void ChangeRefreshTime(object nah)
 		{
 			_cancelts.Cancel();
+			_cancelts = new CancellationTokenSource();
 			if (RefreshTime != 0)
 				RefreshIndefinetely(RefreshTime, _cancelts);
 		}
@@ -133,7 +146,7 @@ namespace TaskManager.ViewModel
 			{
 				SortButtonText = "Descending";
 			}
-			Refresh(nah);
+			FilterAndSort();
 		}
 		private void Refresh(object nah)
 		{
