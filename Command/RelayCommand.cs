@@ -9,30 +9,39 @@ namespace TaskManager.Command
 {
 	public class RelayCommand : ICommand
 	{
-		public event EventHandler CanExecuteChanged
-		{
-			add { CommandManager.RequerySuggested += value; }
-			remove { CommandManager.RequerySuggested -= value; }
-		}
-
+		public event EventHandler CanExecuteChanged;
 		private Action<object> execute { get; set; }
+		private Action execute2 { get; set; }
 		private Func<object, bool> canExecute { get; set; }
+		private Func<bool> canExecute2 { get; set; }
 
 		public RelayCommand(Action<object> execute, Func<object, bool> canExecute = null)
 		{
 			this.execute = execute;
 			this.canExecute = canExecute;
 		}
+		public RelayCommand(Action execute, Func<bool> canExecute = null)
+		{
+			this.execute2 = execute;
+			this.canExecute2 = canExecute;
+		}
 
 
 		public bool CanExecute(object parameter)
 		{
-			return this.canExecute == null || this.canExecute(parameter);
+			if (parameter != null)
+				return this.canExecute == null || this.canExecute(parameter);
+			return this.canExecute == null || this.canExecute2();
 		}
 
 		public void Execute(object parameter)
 		{
-			this.execute(parameter);
+			if (parameter != null) 
+				this.execute(parameter);
+			else
+			{
+				this.execute2();
+			}
 		}
 
 		// public void RaiseCanExecuteChanged()

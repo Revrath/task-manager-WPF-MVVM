@@ -26,12 +26,5 @@ namespace TaskManager.View
 			DataContext = new ProcessViewModel();
 			
 		}
-
-		private void radioButton_Checked(object sender, RoutedEventArgs e)
-		{
-
-        }
-
-
     }
 }

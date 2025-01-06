@@ -16,7 +16,6 @@ namespace TaskManager.ViewModel
 		public ICommand RefreshCommand { get; }
 		public ICommand SortCommand { get; }
 		public ICommand KillCommand { get; }
-		public ICommand ChoosePriorityCommand { get; }
 		public ICommand SetPriorityCommand { get; }
 		public ICommand ChangeRefreshTimeCommand { get; }
 		
@@ -29,7 +28,6 @@ namespace TaskManager.ViewModel
 			set
 			{
 				_filterString = value;
-				OnPropertyChanged("FilterString");
 				FilterAndSort();
 			}
 		}
@@ -70,28 +68,8 @@ namespace TaskManager.ViewModel
 			}
 		}
 
-		private int _refreshTime = 1000;
-		public int RefreshTime
-		{
-			get => _refreshTime;
-			set
-			{
-				_refreshTime = value;
-				OnPropertyChanged("RefreshTime");
-			}
-		}
-
-		private ProcessPriorityClass _priority;
-
-		public ProcessPriorityClass Priority
-		{
-			get => _priority;
-			set
-			{
-				_priority = value;
-				OnPropertyChanged("Priority");
-			}
-		}
+		public int RefreshTime { get; set; } = 1000;
+		public ProcessPriorityClass Priority { get; set; }
 
 		private CancellationTokenSource _cancelts = new CancellationTokenSource();
 		public ProcessViewModel()
@@ -106,7 +84,7 @@ namespace TaskManager.ViewModel
 			RefreshIndefinetely(1000, _cancelts);
 		}
 
-		private void Kill(object nah)
+		private void Kill()
 		{
 			SelectedProcess.Kill();
 		}
@@ -122,12 +100,12 @@ namespace TaskManager.ViewModel
 				{
 					return;
 				}
-				Refresh(null);
+				Refresh();
 				await Task.Delay(time);
 			}
 		}
 
-		private void ChangeRefreshTime(object nah)
+		private void ChangeRefreshTime()
 		{
 			_cancelts.Cancel();
 			_cancelts = new CancellationTokenSource();
@@ -135,7 +113,7 @@ namespace TaskManager.ViewModel
 				RefreshIndefinetely(RefreshTime, _cancelts);
 		}
 
-		private void Sort(object nah)
+		private void Sort()
 		{
 			_isAscending = !_isAscending;
 			if (_isAscending)
@@ -148,7 +126,7 @@ namespace TaskManager.ViewModel
 			}
 			FilterAndSort();
 		}
-		private void Refresh(object nah)
+		private void Refresh()
 		{
 			FilterAndSort();
 		}
