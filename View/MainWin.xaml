@@ -13,72 +13,95 @@
         <viewModel:ProcessViewModel/>
     </Window.DataContext>
     <Grid>
-        <ListView x:Name="listView" SelectedItem="{Binding SelectedProcess}" ItemsSource="{Binding Processes}" Margin="0,0,393,20">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding ProcessName}"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
-        
-        <Button x:Name="sort_button" Content="{Binding SortButtonText}" Command="{Binding SortCommand}" HorizontalAlignment="Left" Margin="322,78,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.127,1.162" Height="20" Width="75"/>
-        <Button x:Name="refresh_button" Content="Refresh" Command="{Binding RefreshCommand}" HorizontalAlignment="Left" Margin="274,78,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.127,1.162"/>
-        <TextBox x:Name="filter_text" Text="{Binding FilterString, UpdateSourceTrigger=PropertyChanged}"  HorizontalAlignment="Left" Margin="274,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="123" Height="20" RenderTransformOrigin="0.626,3.802"/>
-        <Label x:Name="label" Content="Say my name:" HorizontalAlignment="Left" Margin="274,20,0,0" VerticalAlignment="Top" Width="123"/>
-        <Label x:Name="label1" Content="Refresh every (ms, 0 to stop):&#xD;&#xA;" HorizontalAlignment="Left" Margin="274,124,0,0" VerticalAlignment="Top" Width="165" Height="28"/>
-        <TextBox x:Name="refresh_text" Text="{Binding RefreshTime, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="274,157,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Button Content="Ok" HorizontalAlignment="Left" Command="{Binding ChangeRefreshTimeCommand}" Margin="399,156,0,0" VerticalAlignment="Top" Width="20"/>
-        
-        <Grid Margin="274,212,80,42">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="23*"/>
-                <RowDefinition Height="29*"/>
-                <RowDefinition Height="284*"/>
-                <RowDefinition Height="80*"/>
-                <RowDefinition Height="80*"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="8*"></ColumnDefinition>
-                <ColumnDefinition Width="29*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Label Content="Name" Grid.Row="0" Grid.Column="0" Margin="0,0,0,27" Grid.RowSpan="2" />
-            <Label  Content="{Binding SelectedProcess.PriorityClass, FallbackValue='-'}" 
-                    Grid.Column="1" Grid.Row="0" />
+        <TabControl>
+            <TabItem Header="Processes">
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <ListView Grid.Column="0" SelectedItem="{Binding SelectedProcess}" ItemsSource="{Binding Processes}" VerticalAlignment="Stretch" Height="759" Width="300">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Name" DisplayMemberBinding="{Binding ProcessName}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
 
-            <Label Content="Priority" Grid.Row="1" Grid.Column="0" Margin="0,0,0,27" Grid.RowSpan="2"/>
-            <Label Grid.Row="1"  Content="{Binding SelectedProcess.ProcessName, FallbackValue='-'}" 
-                   Grid.Column="1"/>
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
 
+                            <Button Grid.Row="0" Grid.Column="0" Content="{Binding SortButtonText}" Command="{Binding SortCommand}" HorizontalAlignment="Stretch"/>
+                            <Button Grid.Row="1" Grid.Column="0" Content="Refresh" Command="{Binding RefreshCommand}" HorizontalAlignment="Stretch"/>
 
-            <Label Content="Modules" Grid.Row="2" Margin="0,18,0,0"/>
-            <ListView Grid.Row="2" ItemsSource="{Binding SelectedProcess.Modules}" Margin="51,18,0,0" Grid.ColumnSpan="2">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=ModuleName}" Width="100"/>
-                    </GridView>
-                </ListView.View>
-            </ListView>
+                            <Label Grid.Row="2" Grid.Column="0" Content="Say my name:" HorizontalAlignment="Left"/>
+                            <TextBox Grid.Row="3" Grid.Column="0" Text="{Binding FilterString, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" Width="123" Height="20"/>
 
-            <Button Content="Death!" Command="{Binding KillCommand}" 
-                    Grid.Row="3"  Grid.Column="0"/>
+                            <Label Grid.Row="4" Grid.Column="0" Content="Refresh every (ms, 0 to stop):&#xA;" HorizontalAlignment="Left" VerticalAlignment="Top" Width="165" Height="28"/>
+                            <TextBox Grid.Row="5" Grid.Column="0" Text="{Binding RefreshTime, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" TextWrapping="Wrap"/>
+                            <Button Grid.Row="6" Grid.Column="1" Content="Ok" HorizontalAlignment="Center" Command="{Binding ChangeRefreshTimeCommand}" />
 
-            <Grid Grid.Column="1" Grid.Row="3" VerticalAlignment="Stretch">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <RadioButton CommandParameter="{x:Static diagnostics:ProcessPriorityClass.Idle}" Command="{Binding SetPriorityCommand}" Grid.Column="0" Content="Idle" Grid.Row="0"/>
-                <RadioButton CommandParameter="{x:Static diagnostics:ProcessPriorityClass.BelowNormal}" Command="{Binding SetPriorityCommand}" Grid.Column="0" Content="BelowNormal" Grid.Row="1"/>
-                <RadioButton CommandParameter="{x:Static diagnostics:ProcessPriorityClass.Normal}" Command="{Binding SetPriorityCommand}" Grid.Column="0" Content="Normal" Grid.Row="2"/>
-                <RadioButton CommandParameter="{x:Static diagnostics:ProcessPriorityClass.AboveNormal}" Command="{Binding  SetPriorityCommand}" Grid.Column="1" Content="AboveNormal"  Grid.Row="0" />
-                <RadioButton CommandParameter="{x:Static diagnostics:ProcessPriorityClass.High}" Command="{Binding  SetPriorityCommand}" Grid.Column="1" Content="High" Grid.Row="1" />
-                <RadioButton CommandParameter="{x:Static diagnostics:ProcessPriorityClass.RealTime}" Command="{Binding SetPriorityCommand}"  Grid.Column="1" Content="RealTime" Grid.Row="2" />
-            </Grid>
-        </Grid>
+                            <Label Grid.Row="7" Grid.Column="0" Content="Name" />
+                            <Label Grid.Row="8" Grid.Column="1" Content="{Binding SelectedProcess.ProcessName, FallbackValue=-}"/>
+
+                            <Label Grid.Row="9" Grid.Column="0" Content="Priority" Margin="0,0,0,27" Grid.RowSpan="2"/>
+                            <Label Grid.Row="10" Grid.Column="1" Content="{Binding SelectedProcess.PriorityClass, FallbackValue=-}"/>
+
+                            <Button Grid.Row="13" Grid.Column="1" Content="Death!" Command="{Binding KillCommand}"/>
+
+                            <Grid Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="2" VerticalAlignment="Stretch">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <RadioButton CommandParameter="{x:Static diagnostics:ProcessPriorityClass.Idle}" Command="{Binding SetPriorityCommand}" Grid.Column="0" Content="Idle" Grid.Row="0"/>
+                                <RadioButton CommandParameter="{x:Static diagnostics:ProcessPriorityClass.BelowNormal}" Command="{Binding SetPriorityCommand}" Grid.Column="0" Content="BelowNormal" Grid.Row="1"/>
+                                <RadioButton CommandParameter="{x:Static diagnostics:ProcessPriorityClass.Normal}" Command="{Binding SetPriorityCommand}" Grid.Column="0" Content="Normal" Grid.Row="2"/>
+                                <RadioButton CommandParameter="{x:Static diagnostics:ProcessPriorityClass.AboveNormal}" Command="{Binding SetPriorityCommand}" Grid.Column="1" Content="AboveNormal" Grid.Row="0"/>
+                                <RadioButton CommandParameter="{x:Static diagnostics:ProcessPriorityClass.High}" Command="{Binding SetPriorityCommand}" Grid.Column="1" Content="High" Grid.Row="1"/>
+                                <RadioButton CommandParameter="{x:Static diagnostics:ProcessPriorityClass.RealTime}" Command="{Binding SetPriorityCommand}" Grid.Column="1" Content="RealTime" Grid.Row="2"/>
+                            </Grid>
+
+                            <Label Grid.Row="13" Grid.Column="0" Content="Modules"/>
+                            <ListView Grid.Row="14" Grid.Column="0" Grid.ColumnSpan="2"  ItemsSource="{Binding SelectedProcess.Modules}" >
+                                <ListView.View>
+                                    
+                                    <GridView>
+                                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding ModuleName}"/>
+                                        <GridViewColumn Header="Memory Size" DisplayMemberBinding="{Binding ModuleMemorySize}"/>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </Grid>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
