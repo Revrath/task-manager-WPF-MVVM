@@ -45,7 +45,7 @@ namespace TaskManager.ViewModel
 		{
 			//s -> ms, min 1 second 
 			CmdTime = Math.Max(1, CmdTime);
-			CmdTime *= 400;	
+			CmdTime *= 1000;	
 
 			var t = new MyTask
 			{
@@ -59,7 +59,6 @@ namespace TaskManager.ViewModel
 				CmdString = "/C " + CmdString;
 			Tasks.Add(t);
 			CmdExecution(t);
-			
 		}
 
 		private async Task CmdExecution(MyTask task)
@@ -71,6 +70,7 @@ namespace TaskManager.ViewModel
 					return;
 				}
 				System.Diagnostics.Process.Start("CMD.exe", CmdString);
+				task.TimesRun++;
 				await Task.Delay(CmdTime);
 			}
 		}

@@ -24,8 +24,9 @@
         <ListView Grid.Column="0" Grid.RowSpan="100" ItemsSource="{Binding Tasks}" >
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Name" Width="Auto"  DisplayMemberBinding="{Binding Name}" />
+                        <GridViewColumn Header="Name" Width="100"  DisplayMemberBinding="{Binding Name}" />
                         <GridViewColumn Header="Time" Width="Auto"  DisplayMemberBinding="{Binding Time}"/>
+                        <GridViewColumn Header="Count" Width="50"  DisplayMemberBinding="{Binding TimesRun}"/>
                         <GridViewColumn Header="Stop it">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
@@ -36,12 +37,16 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            <Label Grid.Column="1">Repeat every [s], min. 1</Label>
+            
+        <Label Grid.Column="1">Repeat every [s], min. 1</Label>
             <TextBox TextWrapping="Wrap" Text="{Binding CmdTime}" Grid.Column="2" />
+            
             <Label Grid.Column="1" Grid.Row="1">Task</Label>
             <TextBox Grid.Column="2" Grid.Row="1" Text="{Binding CmdString}"></TextBox>
-        <Label HorizontalAlignment="left" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2">Keep CMD open?</Label>
-        <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2" IsChecked="{Binding KeepOpen}"></CheckBox>
-        <Button Grid.Column="2" Grid.Row="2" Command="{Binding ExecuteCmdCommand}">Accept</Button>
+
+            <Label HorizontalAlignment="left" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2">Keep CMD open?</Label>
+            <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2" IsChecked="{Binding KeepOpen}"></CheckBox>
+
+            <Button Grid.Column="2" Grid.Row="2" Command="{Binding ExecuteCmdCommand}">Accept</Button>
         </Grid>
 </UserControl>
