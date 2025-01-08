@@ -9,6 +9,7 @@ using TaskManager.Model;
 using System.Diagnostics;
 using System.Threading;
 using TaskManager.Command;
+using System.Timers;
 namespace TaskManager.ViewModel
 {
 	public class ProcessViewModel : BaseViewModel

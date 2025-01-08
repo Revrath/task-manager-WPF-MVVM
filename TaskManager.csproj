@@ -55,11 +55,26 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="uc\ChoosePriorityControl.xaml.cs">
+      <DependentUpon>ChoosePriorityControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Command\RelayCommand.cs" />
+    <Compile Include="Model\MyTask.cs" />
     <Compile Include="Model\ProcessRepository.cs" />
     <Compile Include="Priority.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\ProcessViewModel.cs" />
+    <Compile Include="ViewModel\TasksViewModel.cs" />
+    <Compile Include="View\ProcessesTab.xaml.cs">
+      <DependentUpon>ProcessesTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TasksTab.xaml.cs">
+      <DependentUpon>TasksTab.xaml</DependentUpon>
+    </Compile>
+    <Page Include="uc\ChoosePriorityControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\MainWin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -71,6 +86,14 @@
     <Compile Include="View\MainWin.xaml.cs">
       <DependentUpon>MainWin.xaml</DependentUpon>
     </Compile>
+    <Page Include="View\ProcessesTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TasksTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\MyProcess.cs" />

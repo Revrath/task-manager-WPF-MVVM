@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="TaskManager.uc.ChoosePriorityControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TaskManager"
+             xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=System"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <RadioButton CommandParameter="{x:Static diagnostics:ProcessPriorityClass.Idle}" Command="{Binding SetPriorityCommand}" Grid.Column="0" Content="Idle" Grid.Row="0"/>
+            <RadioButton CommandParameter="{x:Static diagnostics:ProcessPriorityClass.BelowNormal}" Command="{Binding SetPriorityCommand}" Grid.Column="0" Content="BelowNormal" Grid.Row="1"/>
+            <RadioButton CommandParameter="{x:Static diagnostics:ProcessPriorityClass.Normal}" Command="{Binding SetPriorityCommand}" Grid.Column="0" Content="Normal" Grid.Row="2"/>
+            <RadioButton CommandParameter="{x:Static diagnostics:ProcessPriorityClass.AboveNormal}" Command="{Binding SetPriorityCommand}" Grid.Column="1" Content="AboveNormal" Grid.Row="0"/>
+            <RadioButton CommandParameter="{x:Static diagnostics:ProcessPriorityClass.High}" Command="{Binding SetPriorityCommand}" Grid.Column="1" Content="High" Grid.Row="1"/>
+            <RadioButton CommandParameter="{x:Static diagnostics:ProcessPriorityClass.RealTime}" Command="{Binding SetPriorityCommand}" Grid.Column="1" Content="RealTime" Grid.Row="2"/>
+        </Grid>
+    </Grid>
+</UserControl>

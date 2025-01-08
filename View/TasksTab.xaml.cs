@@ -10,20 +10,21 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TaskManager.ViewModel;
 
 namespace TaskManager.View
 {
 	/// <summary>
-	/// Interaction logic for MainWin.xaml
+	/// Interaction logic for TasksTab.xaml
 	/// </summary>
-	public partial class MainWin : Window
+	public partial class TasksTab : UserControl
 	{
-		public MainWin()
+		public TasksTab()
 		{
 			InitializeComponent();
-			
+			DataContext = new TasksViewModel();
 		}
-    }
+	}
 }

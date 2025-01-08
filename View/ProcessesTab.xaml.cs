@@ -10,20 +10,21 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TaskManager.ViewModel;
 
 namespace TaskManager.View
 {
 	/// <summary>
-	/// Interaction logic for MainWin.xaml
+	/// Interaction logic for ProcessesTab.xaml
 	/// </summary>
-	public partial class MainWin : Window
+	public partial class ProcessesTab : UserControl
 	{
-		public MainWin()
+		public ProcessesTab()
 		{
 			InitializeComponent();
-			
+			DataContext = new ProcessViewModel();
 		}
-    }
+	}
 }
