@@ -36,10 +36,12 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            <Label Grid.Column="1">Repeat every [ms], min. 1000</Label>
+            <Label Grid.Column="1">Repeat every [s], min. 1</Label>
             <TextBox TextWrapping="Wrap" Text="{Binding CmdTime}" Grid.Column="2" />
             <Label Grid.Column="1" Grid.Row="1">Task</Label>
             <TextBox Grid.Column="2" Grid.Row="1" Text="{Binding CmdString}"></TextBox>
-        <Button Grid.Column="1" Grid.Row="2" Command="{Binding ExecuteCmdCommand}">Accept</Button>
+        <Label HorizontalAlignment="left" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2">Keep CMD open?</Label>
+        <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2" IsChecked="{Binding KeepOpen}"></CheckBox>
+        <Button Grid.Column="2" Grid.Row="2" Command="{Binding ExecuteCmdCommand}">Accept</Button>
         </Grid>
 </UserControl>

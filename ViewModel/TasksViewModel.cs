@@ -18,6 +18,7 @@ namespace TaskManager.ViewModel
 		public ICommand StopTaskCommand { get; }
 		public string CmdString { get; set; }
 		public int CmdTime { get; set; }
+		public bool KeepOpen {get; set; }
 		private ObservableCollection<MyTask> _tasks = new ObservableCollection<MyTask>();
 		public ObservableCollection<MyTask> Tasks
 		{
@@ -38,15 +39,24 @@ namespace TaskManager.ViewModel
 		{
 			var myTask = (MyTask)tsk;
 			myTask.Cts.Cancel();
+			Tasks.Remove(myTask);
 		}
 		private void ExecuteCmd()
 		{
+			//s -> ms, min 1 second 
+			CmdTime = Math.Max(1, CmdTime);
+			CmdTime *= 400;	
+
 			var t = new MyTask
 			{
 				Name = CmdString,
 				Time = CmdTime,
 				Cts = new CancellationTokenSource()
 			};
+			if (KeepOpen)
+				CmdString = "/K " + CmdString;
+			else
+				CmdString = "/C " + CmdString;
 			Tasks.Add(t);
 			CmdExecution(t);
 			
