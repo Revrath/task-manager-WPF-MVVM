@@ -34,7 +34,6 @@ namespace TaskManager.ViewModel
 			StopTaskCommand = new RelayCommand(StopTask);
 			ExecuteCmdCommand = new RelayCommand(ExecuteCmd);
 		}
-
 		private void StopTask(object tsk)
 		{
 			var myTask = (MyTask)tsk;
@@ -43,9 +42,12 @@ namespace TaskManager.ViewModel
 		}
 		private void ExecuteCmd()
 		{
-			//s -> ms, min 1 second 
 			CmdTime = Math.Max(1, CmdTime);
-			CmdTime *= 1000;	
+
+			if (KeepOpen)
+				CmdString = "/K " + CmdString;
+			else
+				CmdString = "/C " + CmdString;
 
 			var t = new MyTask
 			{
@@ -53,10 +55,7 @@ namespace TaskManager.ViewModel
 				Time = CmdTime,
 				Cts = new CancellationTokenSource()
 			};
-			if (KeepOpen)
-				CmdString = "/K " + CmdString;
-			else
-				CmdString = "/C " + CmdString;
+			CmdString = "";
 			Tasks.Add(t);
 			CmdExecution(t);
 		}
@@ -69,9 +68,10 @@ namespace TaskManager.ViewModel
 				{
 					return;
 				}
-				System.Diagnostics.Process.Start("CMD.exe", CmdString);
+				System.Diagnostics.Process.Start("CMD.exe", task.Name);
 				task.TimesRun++;
-				await Task.Delay(CmdTime);
+				task.LastRun = DateTime.Now;
+				await Task.Delay(task.Time* 1000);
 			}
 		}
 	}
