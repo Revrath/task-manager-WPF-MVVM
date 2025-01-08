@@ -12,5 +12,11 @@ namespace TaskManager.Model
 		public string Name { get; set; }
 		public int Time  { get; set; }
 		public CancellationTokenSource Cts;
+		public MyTask This { get; set; }
+
+		public MyTask()
+		{
+			This = this;
+		}
 	}
 }

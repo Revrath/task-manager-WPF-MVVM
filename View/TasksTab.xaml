@@ -28,8 +28,8 @@
                         <GridViewColumn Header="Time" Width="Auto"  DisplayMemberBinding="{Binding Time}"/>
                         <GridViewColumn Header="Stop it">
                             <GridViewColumn.CellTemplate>
-                                <DataTemplate >
-                                    <Button>Stop task</Button>
+                                <DataTemplate>
+                                <Button Command="{Binding DataContext.StopTaskCommand , RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListView}} }" CommandParameter="{Binding}">Stop task</Button>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -37,7 +37,7 @@
                 </ListView.View>
             </ListView>
             <Label Grid.Column="1">Repeat every [ms], min. 1000</Label>
-            <TextBox TextWrapping="Wrap" Text="TextBox" Grid.Column="2"/>
+            <TextBox TextWrapping="Wrap" Text="{Binding CmdTime}" Grid.Column="2" />
             <Label Grid.Column="1" Grid.Row="1">Task</Label>
             <TextBox Grid.Column="2" Grid.Row="1" Text="{Binding CmdString}"></TextBox>
         <Button Grid.Column="1" Grid.Row="2" Command="{Binding ExecuteCmdCommand}">Accept</Button>
