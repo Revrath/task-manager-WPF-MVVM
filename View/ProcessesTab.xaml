@@ -66,27 +66,7 @@
 
             <Button Grid.Row="13" Grid.Column="1" Content="Death!" Command="{Binding KillCommand}"/>
 
-            <uc:ChoosePriorityControl Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="2" VerticalAlignment="Stretch">
-
-            </uc:ChoosePriorityControl>
-            <!-- <Grid Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="2" VerticalAlignment="Stretch"> -->
-            <!--     <Grid.RowDefinitions> -->
-            <!--         <RowDefinition Height="*"/> -->
-            <!--         <RowDefinition Height="*"/> -->
-            <!--         <RowDefinition Height="*"/> -->
-            <!--     </Grid.RowDefinitions> -->
-            <!--     <Grid.ColumnDefinitions> -->
-            <!--         <ColumnDefinition Width="*"/> -->
-            <!--         <ColumnDefinition Width="*"/> -->
-            <!--     </Grid.ColumnDefinitions> -->
-            <!-- -->
-            <!--     <RadioButton CommandParameter="{x:Static diagnostics:ProcessPriorityClass.Idle}" Command="{Binding SetPriorityCommand}" Grid.Column="0" Content="Idle" Grid.Row="0"/> -->
-            <!--     <RadioButton CommandParameter="{x:Static diagnostics:ProcessPriorityClass.BelowNormal}" Command="{Binding SetPriorityCommand}" Grid.Column="0" Content="BelowNormal" Grid.Row="1"/> -->
-            <!--     <RadioButton CommandParameter="{x:Static diagnostics:ProcessPriorityClass.Normal}" Command="{Binding SetPriorityCommand}" Grid.Column="0" Content="Normal" Grid.Row="2"/> -->
-            <!--     <RadioButton CommandParameter="{x:Static diagnostics:ProcessPriorityClass.AboveNormal}" Command="{Binding SetPriorityCommand}" Grid.Column="1" Content="AboveNormal" Grid.Row="0"/> -->
-            <!--     <RadioButton CommandParameter="{x:Static diagnostics:ProcessPriorityClass.High}" Command="{Binding SetPriorityCommand}" Grid.Column="1" Content="High" Grid.Row="1"/> -->
-            <!--     <RadioButton CommandParameter="{x:Static diagnostics:ProcessPriorityClass.RealTime}" Command="{Binding SetPriorityCommand}" Grid.Column="1" Content="RealTime" Grid.Row="2"/> -->
-            <!-- </Grid> -->
+            <uc:ChoosePriorityControl Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="2" VerticalAlignment="Stretch"/>
 
             <Label Grid.Row="13" Grid.Column="0" Content="Modules"/>
             <ListView Grid.Row="14" Grid.Column="0" Grid.ColumnSpan="2"  ItemsSource="{Binding SelectedProcess.Modules}" >

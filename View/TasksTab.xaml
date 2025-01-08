@@ -7,28 +7,29 @@
              xmlns:viewModel="clr-namespace:TaskManager.ViewModel"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="650">
     <UserControl.DataContext>
         <viewModel:TasksViewModel/>
     </UserControl.DataContext>
     <Grid>
             <Grid.RowDefinitions>
+                <RowDefinition Height="290"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="100"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="100"/>
             </Grid.ColumnDefinitions>   
-        <ListView Grid.Column="0" Grid.RowSpan="100" ItemsSource="{Binding Tasks}" >
+        <ListView Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding Tasks}" >
             <ListView.View>
                 <GridView> 
-                        <GridViewColumn Header="Name" Width="100"  DisplayMemberBinding="{Binding Name}" />
-                        <GridViewColumn Header="Time" Width="Auto"  DisplayMemberBinding="{Binding Time}"/>
+                        <GridViewColumn Header="Name" Width="300"  DisplayMemberBinding="{Binding Name}" />
+                        <GridViewColumn Header="Time" Width="70"  DisplayMemberBinding="{Binding Time}"/>
                         <GridViewColumn Header="Count" Width="50"  DisplayMemberBinding="{Binding TimesRun}"/>
-                        <GridViewColumn Header="Stop it">
+                        <GridViewColumn Header="Stop it" Width="100">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                 <Button Command="{Binding DataContext.StopTaskCommand , RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListView}} }" CommandParameter="{Binding}">Stop task</Button>
@@ -48,15 +49,16 @@
             </ListView.ItemContainerStyle>
         </ListView>
             
-        <Label Grid.Column="1">Repeat every [s], min. 1</Label>
-            <TextBox TextWrapping="Wrap" Text="{Binding CmdTime}" Grid.Column="2" />
-            
-            <Label Grid.Column="1" Grid.Row="1">Task</Label>
-            <TextBox Grid.Column="2" Grid.Row="1" Text="{Binding CmdString}"></TextBox>
+        <Label Grid.Row="1" Grid.Column="0">Repeat every [s], min. 1</Label>
+        <TextBox Grid.Row="2" TextWrapping="Wrap" Text="{Binding CmdTime}" Grid.Column="0" />
+        
+        <Label Grid.Column="1" Grid.Row="1">Command</Label>
+        <TextBox Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" Text="{Binding CmdString}"></TextBox>
 
-            <Label HorizontalAlignment="left" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2">Keep CMD open?</Label>
-            <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2" IsChecked="{Binding KeepOpen}"></CheckBox>
+        <Label HorizontalAlignment="left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="3">Keep CMD open?</Label>
+        <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Grid.Row="3" IsChecked="{Binding KeepOpen}"></CheckBox>
 
-            <Button Grid.Column="2" Grid.Row="2" Command="{Binding ExecuteCmdCommand}">Accept</Button>
-        </Grid>
+        <Button Grid.Column="2" Grid.Row="3" Command="{Binding ExecuteCmdCommand}" >Accept</Button>
+        <Button Grid.Row="0" Grid.Column="2"  Content="{Binding SortButtonText}" Command="{Binding SortCommand}"/>
+    </Grid>
 </UserControl>

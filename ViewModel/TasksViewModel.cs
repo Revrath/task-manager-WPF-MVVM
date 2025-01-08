@@ -16,8 +16,24 @@ namespace TaskManager.ViewModel
 	{
 		public ICommand ExecuteCmdCommand { get; }
 		public ICommand StopTaskCommand { get; }
+
+		public ICommand SortCommand { get; }
+
+		private string _sortButtonText;
+		public string SortButtonText
+		{
+			get => _sortButtonText ?? (_sortButtonText = "Ascending");
+			set
+			{
+				_sortButtonText = value;
+				OnPropertyChanged("SortButtonText");
+			}
+		}
+
+		private bool _isAscending = true;
+
 		public string CmdString { get; set; }
-		public int CmdTime { get; set; }
+		public int CmdTime { get; set; } = 1;
 		public bool KeepOpen {get; set; }
 		private ObservableCollection<MyTask> _tasks = new ObservableCollection<MyTask>();
 		public ObservableCollection<MyTask> Tasks
@@ -31,6 +47,7 @@ namespace TaskManager.ViewModel
 		}
 		public TasksViewModel()
 		{
+			SortCommand = new RelayCommand(Sort);
 			StopTaskCommand = new RelayCommand(StopTask);
 			ExecuteCmdCommand = new RelayCommand(ExecuteCmd);
 		}
@@ -40,10 +57,27 @@ namespace TaskManager.ViewModel
 			myTask.Cts.Cancel();
 			Tasks.Remove(myTask);
 		}
+
+
+		private void Sort()
+		{
+			_isAscending = !_isAscending;
+			if (_isAscending)
+			{
+				SortButtonText = "Ascending";
+				Tasks = new ObservableCollection<MyTask>(Tasks.OrderBy(x => x.Name));
+			}
+			else
+			{
+				SortButtonText = "Descending";
+				Tasks = new ObservableCollection<MyTask>(Tasks.OrderByDescending(x => x.Name));
+			}
+		}
+
 		private void ExecuteCmd()
 		{
 			CmdTime = Math.Max(1, CmdTime);
-
+			string defaultString = CmdString;
 			if (KeepOpen)
 				CmdString = "/K " + CmdString;
 			else
@@ -55,7 +89,7 @@ namespace TaskManager.ViewModel
 				Time = CmdTime,
 				Cts = new CancellationTokenSource()
 			};
-			CmdString = "";
+			CmdString = defaultString;
 			Tasks.Add(t);
 			CmdExecution(t);
 		}
