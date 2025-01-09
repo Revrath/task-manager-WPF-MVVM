@@ -23,7 +23,7 @@ namespace TaskManager.Model
 		{
 			get
 			{
-				return $"{(DateTime.Now - LastRun).TotalSeconds:F2} seconds since start";
+				return $"{Math.Round(Time-(DateTime.Now - LastRun).TotalSeconds, 2)} seconds left";
 			}
 		}
 

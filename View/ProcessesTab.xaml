@@ -49,24 +49,24 @@
             </Grid.ColumnDefinitions>
 
             <Button Grid.Row="0" Grid.Column="0" Content="{Binding SortButtonText}" Command="{Binding SortCommand}" HorizontalAlignment="Stretch"/>
-            <Button Grid.Row="1" Grid.Column="0" Content="Refresh" Command="{Binding RefreshCommand}" HorizontalAlignment="Stretch"/>
+            <Button Grid.Row="0" Grid.Column="1" Content="Refresh" Command="{Binding RefreshCommand}" HorizontalAlignment="Stretch"/>
 
             <Label Grid.Row="2" Grid.Column="0" Content="Say my name:" HorizontalAlignment="Left"/>
-            <TextBox Grid.Row="3" Grid.Column="0" Text="{Binding FilterString, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" Width="123" Height="20"/>
+            <TextBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding FilterString, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" Width="123" Height="20"/>
 
-            <Label Grid.Row="4" Grid.Column="0" Content="Refresh every (ms, 0 to stop):&#xA;" HorizontalAlignment="Left" VerticalAlignment="Top" Width="165" Height="28"/>
-            <TextBox Grid.Row="5" Grid.Column="0" Text="{Binding RefreshTime, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" TextWrapping="Wrap"/>
-            <Button Grid.Row="6" Grid.Column="1" Content="Ok" HorizontalAlignment="Center" Command="{Binding ChangeRefreshTimeCommand}" />
+            <Label Grid.Row="3" Grid.Column="0" Content="Refresh every (ms, 0 to stop):&#xA;" HorizontalAlignment="Left" VerticalAlignment="Top" Width="165" Height="28"/>
+            <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding RefreshTime, UpdateSourceTrigger=PropertyChanged}" Width="40" TextWrapping="Wrap" Height="20" />
+            <Button Grid.Row="3" Grid.Column="1" Content="Ok" HorizontalAlignment="Center" Command="{Binding ChangeRefreshTimeCommand}" Width="70" Height="20" />
 
-            <Label Grid.Row="7" Grid.Column="0" Content="Name" />
-            <Label Grid.Row="8" Grid.Column="1" Content="{Binding SelectedProcess.ProcessName, FallbackValue=-}"/>
+            <Label Grid.Row="4" Grid.Column="0" Content="Name" />
+            <Label Grid.Row="4" Grid.Column="1" Content="{Binding SelectedProcess.ProcessName, FallbackValue=-}"/>
 
-            <Label Grid.Row="9" Grid.Column="0" Content="Priority" Margin="0,0,0,27" Grid.RowSpan="2"/>
-            <Label Grid.Row="10" Grid.Column="1" Content="{Binding SelectedProcess.PriorityClass, FallbackValue=-}"/>
+            <Label Grid.Row="5" Grid.Column="0" Content="Priority" Margin="0,0,0,27" Grid.RowSpan="2"/>
+            <Label Grid.Row="5" Grid.Column="1" Content="{Binding SelectedProcess.PriorityClass, FallbackValue=-}"/>
 
-            <Button Grid.Row="13" Grid.Column="1" Content="Death!" Command="{Binding KillCommand}"/>
+            <Button Grid.Row="7" Grid.Column="0" Content="Death!" Command="{Binding KillCommand}"/>
 
-            <uc:ChoosePriorityControl Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="2" VerticalAlignment="Stretch"/>
+            <uc:ChoosePriorityControl Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" VerticalAlignment="Stretch"/>
 
             <Label Grid.Row="13" Grid.Column="0" Content="Modules"/>
             <ListView Grid.Row="14" Grid.Column="0" Grid.ColumnSpan="2"  ItemsSource="{Binding SelectedProcess.Modules}" >

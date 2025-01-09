@@ -9,7 +9,7 @@
         xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=System"
         xmlns:taskManager="clr-namespace:TaskManager"
         mc:Ignorable="d"
-        Title="MainWin" Height="800" Width="650"
+        Title="MainWin" Height="800" Width="800"
         >
 
     <Grid>
